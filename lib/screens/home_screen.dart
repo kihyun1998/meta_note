@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:meta_note/utils/app_styles.dart";
+import "package:meta_note/widgets/custom_textfield.dart";
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -32,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             const SizedBox(height: 20),
+            const CustomTextField(),
           ],
         ),
       ),
