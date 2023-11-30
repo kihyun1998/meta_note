@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:meta_note/utils/app_styles.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -29,6 +30,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
     super.dispose();
   }
 
+  void copyText(context, String text) {
+    Clipboard.setData(ClipboardData(text: text));
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -43,6 +48,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       decoration: InputDecoration(
           hintStyle: AppTheme.hintStyle,
           hintText: widget.hintText,
+          suffixIcon: _copyButton(context),
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(
               color: AppTheme.accent,
@@ -54,6 +60,21 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ),
           ),
           counterStyle: AppTheme.counterStyle),
+    );
+  }
+
+  IconButton _copyButton(BuildContext context) {
+    return IconButton(
+      onPressed: widget.controller.text.isNotEmpty
+          ? () => copyText(context, widget.controller.text)
+          : null,
+      splashRadius: 20,
+      splashColor: AppTheme.splash,
+      disabledColor: AppTheme.medium,
+      icon: const Icon(
+        Icons.content_copy_rounded,
+        color: AppTheme.accent,
+      ),
     );
   }
 }
