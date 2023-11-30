@@ -10,6 +10,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController titleController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             const SizedBox(height: 20),
-            const CustomTextField(),
+            CustomTextField(
+              maxLength: 100,
+              maxLines: 2,
+              hintText: 'Enter Title',
+              controller: titleController,
+            ),
           ],
         ),
       ),
