@@ -68,15 +68,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
   IconButton _copyButton(BuildContext context) {
     return IconButton(
       onPressed: widget.controller.text.isNotEmpty
-          ? () => {copyText(context, widget.controller.text)}
+          ? () => copyText(context, widget.controller.text)
           : null,
       splashRadius: 20,
       splashColor: AppTheme.splash,
       disabledColor: AppTheme.medium,
-      icon: const Icon(
-        Icons.content_copy_rounded,
-        color: AppTheme.accent,
-      ),
+      color: AppTheme.accent,
+      icon: const Icon(Icons.content_copy_rounded),
     );
   }
 }

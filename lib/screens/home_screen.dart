@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:meta_note/services/file_service.dart";
 import "package:meta_note/utils/app_styles.dart";
 import "package:meta_note/widgets/custom_textfield.dart";
 
@@ -10,9 +11,41 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController memoController = TextEditingController();
+  FileService fileService = FileService();
+
+  @override
+  void initState() {
+    super.initState();
+    addListners();
+  }
+
+  @override
+  void dispose() {
+    removeListners();
+    super.dispose();
+  }
+
+  void removeListners() {
+    for (TextEditingController controller in fileService.controllers) {
+      controller.dispose();
+    }
+  }
+
+  void addListners() {
+    for (TextEditingController controller in fileService.controllers) {
+      controller.addListener(_onFieldChanged);
+    }
+  }
+
+  // 필드의 텍스트가 변경된다면
+  void _onFieldChanged() {
+    setState(() {
+      fileService.fieldsNotEmpty =
+          fileService.titleController.text.isNotEmpty &&
+              fileService.descriptionController.text.isNotEmpty &&
+              fileService.memoController.text.isNotEmpty;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _mainButton(() => null, 'New File'),
-                _mainButton(null, 'Save File'),
                 Row(
                   children: [
                     _actionButton(() => null, Icons.file_upload),
@@ -41,21 +73,29 @@ class _HomeScreenState extends State<HomeScreen> {
               maxLength: 100,
               maxLines: 2,
               hintText: 'Enter Title',
-              controller: titleController,
+              controller: fileService.titleController,
             ),
             const SizedBox(height: 40),
             CustomTextField(
               maxLength: 500,
-              maxLines: 4,
+              maxLines: 3,
               hintText: 'Enter Memo Description',
-              controller: descriptionController,
+              controller: fileService.descriptionController,
             ),
             const SizedBox(height: 40),
             CustomTextField(
-              maxLength: 5000,
-              maxLines: 10,
+              maxLength: 3000,
+              maxLines: 7,
               hintText: 'Enter Memo',
-              controller: memoController,
+              controller: fileService.memoController,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                _mainButton(() => null, 'Save File'),
+              ],
             ),
           ],
         ),
