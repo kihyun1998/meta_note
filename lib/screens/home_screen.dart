@@ -31,13 +31,14 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // TextEditingController들을 Listner에 추가
   void addListners() {
     for (TextEditingController controller in fileService.controllers) {
       controller.addListener(_onFieldChanged);
     }
   }
 
-  // 필드의 텍스트가 변경된다면
+  // 필드의 텍스트가 변경된다면 감지해서 setState
   void _onFieldChanged() {
     setState(() {
       fileService.fieldsNotEmpty =
