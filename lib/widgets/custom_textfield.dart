@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meta_note/utils/app_styles.dart';
+import 'package:meta_note/utils/snackbar_utils.dart';
 
 class CustomTextField extends StatefulWidget {
   final int maxLength;
@@ -32,6 +33,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   void copyText(context, String text) {
     Clipboard.setData(ClipboardData(text: text));
+    SnackBarUtils.showSnackBar(context, Icons.content_copy, "Text is copied");
   }
 
   @override
@@ -66,7 +68,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   IconButton _copyButton(BuildContext context) {
     return IconButton(
       onPressed: widget.controller.text.isNotEmpty
-          ? () => copyText(context, widget.controller.text)
+          ? () => {copyText(context, widget.controller.text)}
           : null,
       splashRadius: 20,
       splashColor: AppTheme.splash,

@@ -11,6 +11,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController memoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,20 @@ class _HomeScreenState extends State<HomeScreen> {
               maxLines: 2,
               hintText: 'Enter Title',
               controller: titleController,
+            ),
+            const SizedBox(height: 40),
+            CustomTextField(
+              maxLength: 500,
+              maxLines: 4,
+              hintText: 'Enter Memo Description',
+              controller: descriptionController,
+            ),
+            const SizedBox(height: 40),
+            CustomTextField(
+              maxLength: 5000,
+              maxLines: 10,
+              hintText: 'Enter Memo',
+              controller: memoController,
             ),
           ],
         ),
