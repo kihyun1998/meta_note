@@ -60,30 +60,50 @@ class FileService {
     }
   }
 
-  // 파일 로드
+  // 파일 로드 함수
   void loadFile(context) async {
     try {
       // 파일 가져오기 => FilePicker.platform.pickFiles()
       FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+      // 파일을 잘 불러왔다면 (null이 아니라면)
       if (result != null) {
         File file = File(result.files.single.path!); // 파일 경로로 불러오기
         debugPrint(result.files.single.path);
-        _selectedFile = file;
+        _selectedFile = file; // selected file 설정
 
+        // 파일 읽기
         final fileContent = await file.readAsString();
-        final lines = fileContent.split('\n\n');
+        final lines = fileContent.split('\n\n'); // 구분자로 라인 나누기
+        // controller.text에 문자열 입력
         titleController.text = lines[1];
         descriptionController.text = lines[3];
         memoController.text = lines[5];
+
+        // 잘 끝났다는 스낵바
         SnackBarUtils.showSnackBar(
             context, Icons.upload_file, 'File uploaded successfully.');
       } else {
+        // 파일 선택 실패
         SnackBarUtils.showSnackBar(context, Icons.error, 'No file selected.');
       }
     } catch (e) {
+      // 파일 선택 실패
       SnackBarUtils.showSnackBar(context, Icons.error, 'Fails to load file');
       debugPrint("[ERROR] : ${e.toString()}");
     }
+  }
+
+  // 새 파일 생성
+  void newFile(context) {
+    // 기존 선택됐던 파일 초기화 작업
+    _selectedFile = null;
+    titleController.clear();
+    descriptionController.clear();
+    memoController.clear();
+
+    SnackBarUtils.showSnackBar(
+        context, Icons.file_upload, 'file created successfully.');
   }
 
   static String getTodayDate() {

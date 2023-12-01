@@ -59,10 +59,15 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _mainButton(() => null, 'New File'),
+                _mainButton(
+                  // 새 파일 생성
+                  () => fileService.newFile(context),
+                  'New File',
+                ),
                 Row(
                   children: [
                     _actionButton(
+                      // 파일 불러오기
                       () => fileService.loadFile(context),
                       Icons.file_upload,
                     ),
@@ -74,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 20),
             CustomTextField(
+              // 제목 입력 텍스트 필드
               maxLength: 100,
               maxLines: 2,
               hintText: 'Enter Title',
@@ -81,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 40),
             CustomTextField(
+              // 설명 입력 텍스트 필드
               maxLength: 500,
               maxLines: 3,
               hintText: 'Enter Memo Description',
@@ -88,6 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 40),
             CustomTextField(
+              // 메모 입력 텍스트 필드
               maxLength: 3000,
               maxLines: 7,
               hintText: 'Enter Memo',
@@ -99,6 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               children: [
                 _mainButton(
+                    // 파일 저장 버튼
                     fileService.fieldsNotEmpty
                         ? () => fileService.saveContent(context)
                         : null,
@@ -135,6 +144,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+// _buttonStyle 버튼 스타일 정의 위젯
+// backgroundColor : 배경색
+// foregroundColor : 글자색
+// disabledBackgroundColor : 비활성화 배경색
+// disabledForegroundColor : 비활성화시 글자색
   ButtonStyle _buttonStyle() {
     return ElevatedButton.styleFrom(
       backgroundColor: AppTheme.accent,
