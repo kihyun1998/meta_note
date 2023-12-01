@@ -62,7 +62,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 _mainButton(() => null, 'New File'),
                 Row(
                   children: [
-                    _actionButton(() => null, Icons.file_upload),
+                    _actionButton(
+                      () => fileService.loadFile(context),
+                      Icons.file_upload,
+                    ),
                     const SizedBox(width: 8),
                     _actionButton(() => null, Icons.folder),
                   ],
@@ -95,7 +98,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Row(
               children: [
-                _mainButton(() => null, 'Save File'),
+                _mainButton(
+                    fileService.fieldsNotEmpty
+                        ? () => fileService.saveContent(context)
+                        : null,
+                    'Save File'),
               ],
             ),
           ],

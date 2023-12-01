@@ -53,9 +53,35 @@ class FileService {
         }
       }
       SnackBarUtils.showSnackBar(
-          context, Icons.check, 'File saved successfully');
+          context, Icons.check, 'File saved successfully.');
     } catch (e) {
       SnackBarUtils.showSnackBar(context, Icons.error, 'File is not saved.');
+      debugPrint("[ERROR] : ${e.toString()}");
+    }
+  }
+
+  // 파일 로드
+  void loadFile(context) async {
+    try {
+      // 파일 가져오기 => FilePicker.platform.pickFiles()
+      FilePickerResult? result = await FilePicker.platform.pickFiles();
+      if (result != null) {
+        File file = File(result.files.single.path!); // 파일 경로로 불러오기
+        debugPrint(result.files.single.path);
+        _selectedFile = file;
+
+        final fileContent = await file.readAsString();
+        final lines = fileContent.split('\n\n');
+        titleController.text = lines[1];
+        descriptionController.text = lines[3];
+        memoController.text = lines[5];
+        SnackBarUtils.showSnackBar(
+            context, Icons.upload_file, 'File uploaded successfully.');
+      } else {
+        SnackBarUtils.showSnackBar(context, Icons.error, 'No file selected.');
+      }
+    } catch (e) {
+      SnackBarUtils.showSnackBar(context, Icons.error, 'Fails to load file');
       debugPrint("[ERROR] : ${e.toString()}");
     }
   }
