@@ -72,7 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icons.file_upload,
                     ),
                     const SizedBox(width: 8),
-                    _actionButton(() => null, Icons.folder),
+                    _actionButton(
+                      // 디렉토리 경로 재설정
+                      () => fileService.newDirectory(context), Icons.folder,
+                    ),
                   ],
                 )
               ],

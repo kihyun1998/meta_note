@@ -47,13 +47,13 @@ class FileService {
           // 사용자가 폴더 경로 눌러야 한다.
           final directory = await FilePicker.platform.getDirectoryPath();
           _selectedDirectory = metaNotePath = directory!; // 경로 저장
-          final filePath = '$metaNotePath/$today - $title-memo.txt'; //파일 경로
-          final newFile = File(filePath); // 파일 경로의 파일 불러오기
-          await newFile.writeAsString(textContent); // 불러온 파일에 text 작성
         }
+        final filePath = '$metaNotePath/$today - $title-memo.txt'; //파일 경로
+        final newFile = File(filePath); // 파일 경로의 파일 불러오기
+        await newFile.writeAsString(textContent); // 불러온 파일에 text 작성
+        SnackBarUtils.showSnackBar(
+            context, Icons.check, 'File saved successfully.');
       }
-      SnackBarUtils.showSnackBar(
-          context, Icons.check, 'File saved successfully.');
     } catch (e) {
       SnackBarUtils.showSnackBar(context, Icons.error, 'File is not saved.');
       debugPrint("[ERROR] : ${e.toString()}");
@@ -104,6 +104,23 @@ class FileService {
 
     SnackBarUtils.showSnackBar(
         context, Icons.file_upload, 'file created successfully.');
+  }
+
+  void newDirectory(context) async {
+    try {
+      String? directory = await FilePicker.platform.getDirectoryPath();
+      if (directory != null) {
+        _selectedDirectory = directory;
+        _selectedFile = null;
+        SnackBarUtils.showSnackBar(context, Icons.error, "New Folder Selected");
+      } else {
+        // Folder를 선택했지만 없는 경우
+        SnackBarUtils.showSnackBar(
+            context, Icons.error, "Please Select Folder.");
+      }
+    } catch (e) {
+      SnackBarUtils.showSnackBar(context, Icons.error, e.toString());
+    }
   }
 
   static String getTodayDate() {
