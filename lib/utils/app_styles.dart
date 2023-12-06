@@ -13,4 +13,10 @@ class AppTheme {
   static const TextStyle textStyle20 = TextStyle(color: light, fontSize: 15);
   static const TextStyle hintStyle = TextStyle(color: medium);
   static const TextStyle counterStyle = TextStyle(color: medium, fontSize: 10);
+  // static const TextStyle splashStyle = TextStyle(
+  //   color: accent,
+  //   fontSize: 60,
+  //   fontStyle: FontStyle.italic,
+  //   fontWeight: FontWeight.w500,
+  // );
 }
