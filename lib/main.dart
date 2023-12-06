@@ -1,8 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:meta_note/screens/home_screen.dart';
 import 'package:meta_note/screens/splash_screen.dart';
+import 'package:window_manager/window_manager.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // flutter pub window-manager
+  await windowManager.ensureInitialized();
+  WindowOptions windowOptions = const WindowOptions(
+    minimumSize: Size(400, 700),
+    size: Size(600, 700),
+    center: true,
+    title: 'MetaNote',
+  );
+
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
+
   runApp(const MyApp());
 }
 
