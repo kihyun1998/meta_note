@@ -12,10 +12,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
-  late Animation<double> _animation;
+  late Animation<double> _iconAnimation;
 
   late AnimationController _textAnimationController;
-  late Animation<double> textAnimation;
+  late Animation<double> _textAnimation;
 
   @override
   void initState() {
@@ -31,14 +31,14 @@ class _SplashScreenState extends State<SplashScreen>
     //     )
     //   },
     // );
-    // 애니메이션 입힌 코드
+    // 아이콘 애니메이션
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(
         seconds: 1,
       ),
     );
-    _animation =
+    _iconAnimation =
         Tween<double>(begin: 150, end: 200).animate(_animationController)
           ..addListener(() {
             setState(() {});
@@ -55,11 +55,36 @@ class _SplashScreenState extends State<SplashScreen>
             },
           );
     _animationController.forward();
+    // 텍스트 애니메이션
+    _textAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        seconds: 1,
+      ),
+    );
+    _textAnimation =
+        Tween<double>(begin: 50, end: 60).animate(_textAnimationController)
+          ..addListener(() {
+            setState(() {});
+          })
+          ..addStatusListener(
+            (status) {
+              if (status == AnimationStatus.completed) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (_) => const HomeScreen(),
+                  ),
+                );
+              }
+            },
+          );
+    _textAnimationController.forward();
   }
 
   @override
   void dispose() {
     _animationController.dispose();
+    _textAnimationController.dispose();
     super.dispose();
   }
 
@@ -76,13 +101,13 @@ class _SplashScreenState extends State<SplashScreen>
             Icon(
               Icons.edit,
               color: AppTheme.accent,
-              size: _animation.value,
+              size: _iconAnimation.value,
             ),
             Text(
               "MetaNote",
               style: TextStyle(
                 color: AppTheme.accent,
-                fontSize: textAnimation.value,
+                fontSize: _textAnimation.value,
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.w500,
               ),
@@ -92,11 +117,4 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
   }
-
-  static TextStyle splashStyle = TextStyle(
-    color: AppTheme.accent,
-    fontSize: textAnimation.value,
-    fontStyle: FontStyle.italic,
-    fontWeight: FontWeight.w500,
-  );
 }
