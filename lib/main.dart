@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:meta_note/screens/splash_screen.dart';
 import 'package:window_manager/window_manager.dart';
 
+// 빌드하는 방법 : flutter build windows
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

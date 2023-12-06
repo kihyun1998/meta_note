@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-// 아이콘 경로는 windows/runner/resources
+// 아이콘 경로는 windows/runner/resources/app_icon
 
 class AppTheme {
   static const Color dark = Color(0xFF1E1E1E);

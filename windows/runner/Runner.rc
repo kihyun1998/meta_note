@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "meta_note" "\0"
+            VALUE "CompanyName", "Penta" "\0"
+            VALUE "FileDescription", "Make Note" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "meta_note" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "meta_note.exe" "\0"
-            VALUE "ProductName", "meta_note" "\0"
+            VALUE "InternalName", "metanote" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 Penta.com All rights reserved." "\0"
+            VALUE "OriginalFilename", "metanote.exe" "\0"
+            VALUE "ProductName", "MetaNote" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
